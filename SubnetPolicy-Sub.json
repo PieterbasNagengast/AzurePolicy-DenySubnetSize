@@ -1,0 +1,76 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2018-05-01/subscriptionDeploymentTemplate.json#",
+  "contentVersion": "1.0.0.0",
+  "metadata": {
+    "_generator": {
+      "name": "bicep",
+      "version": "0.4.613.9944",
+      "templateHash": "4291206882296560804"
+    }
+  },
+  "functions": [],
+  "resources": [
+    {
+      "type": "Microsoft.Authorization/policyDefinitions",
+      "apiVersion": "2021-06-01",
+      "name": "Deny VNET Subnet size",
+      "properties": {
+        "description": "Deny VNET subnet size specified in parameters. Policy works for VNET creation and added/updated Subnets for existing VNETs",
+        "displayName": "Deny VNET Subnet size",
+        "mode": "All",
+        "metadata": {
+          "Category": "Network"
+        },
+        "parameters": {
+          "DeniedSubnetSize": {
+            "type": "String",
+            "defaultValue": "/24",
+            "metadata": {
+              "description": "The denied Subnet size (eg. /24) VNETs",
+              "displayName": "Deny Subnet size"
+            }
+          }
+        },
+        "policyRule": {
+          "if": {
+            "anyof": [
+              {
+                "allof": [
+                  {
+                    "field": "type",
+                    "equals": "Microsoft.Network/virtualNetworks"
+                  },
+                  {
+                    "count": {
+                      "field": "Microsoft.Network/virtualNetworks/subnets[*]",
+                      "where": {
+                        "field": "Microsoft.Network/virtualNetworks/subnets[*].addressPrefix",
+                        "contains": "[[parameters('DeniedSubnetSize')]"
+                      }
+                    },
+                    "greater": 0
+                  }
+                ]
+              },
+              {
+                "allof": [
+                  {
+                    "field": "type",
+                    "equals": "Microsoft.Network/virtualNetworks/subnets"
+                  },
+                  {
+                    "field": "Microsoft.Network/virtualNetworks/subnets/addressPrefix",
+                    "contains": "[[parameters('DeniedSubnetSize')]"
+                  }
+                ]
+              }
+            ]
+          },
+          "then": {
+            "effect": "deny"
+          }
+        }
+      }
+    }
+  ]
+}

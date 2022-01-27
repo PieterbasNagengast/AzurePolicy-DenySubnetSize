@@ -18,4 +18,4 @@ Assign policy and provide Subnet (e.g. /16 or /22 or /24 etc.) to parameter.
 
 | Description | Bicep Template |
 |---|---|
-| Deploy to Azure Management Group| [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2raw.githubusercontent.com/PieterbasNagengast/AzurePolicy-DenySubnetSize/main/SubnetPolicy.json)|
+| Deploy to Azure Management Group| [![Deploy to Azure](https://aka.ms/deploytoazurebutton)](https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2FPieterbasNagengast%2FAzurePolicy-DenySubnetSize%2Fmain%2FSubnetPolicy.json)|
