@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.613.9944",
-      "templateHash": "3689664912774276971"
+      "templateHash": "10141621371079983294"
     }
   },
   "functions": [],
@@ -29,6 +29,19 @@
               "description": "The denied Subnet size (eg. /24) VNETs",
               "displayName": "Deny Subnet size"
             }
+          },
+          "effect": {
+            "type": "String",
+            "metadata": {
+              "displayName": "Effect",
+              "description": "Enable or disable the execution of the policy."
+            },
+            "allowedValues": [
+              "audit",
+              "deny",
+              "disabled"
+            ],
+            "defaultValue": "deny"
           }
         },
         "policyRule": {
@@ -67,7 +80,7 @@
             ]
           },
           "then": {
-            "effect": "deny"
+            "effect": "[[parameters('effect')]"
           }
         }
       }

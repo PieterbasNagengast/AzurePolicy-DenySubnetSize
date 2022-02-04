@@ -1,4 +1,4 @@
-targetScope = 'managementGroup'
+targetScope = 'subscription'
 
 resource SubnetPolicy 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
   name: 'Deny VNET Subnet size'
@@ -14,10 +14,23 @@ resource SubnetPolicy 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
         'type': 'String'
         'defaultValue': '/24'
         'metadata': {
-            'description': 'The denied Subnet size (eg. /24) VNETs'
-            'displayName': 'Deny Subnet size'
+          'description': 'The denied Subnet size (eg. /24) VNETs'
+          'displayName': 'Deny Subnet size'
         }
-    }
+      }
+      'effect': {
+        'type': 'String'
+        'metadata': {
+          'displayName': 'Effect'
+          'description': 'Enable or disable the execution of the policy.'
+        }
+        'allowedValues': [
+          'audit'
+          'deny'
+          'disabled'
+        ]
+        'defaultValue': 'deny'
+      }
     }
     policyRule: {
       'if': {
@@ -55,7 +68,7 @@ resource SubnetPolicy 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
         ]
       }
       'then': {
-        'effect': 'deny'
+        'effect': '[parameters(\'effect\')]'
       }
     }
   }
