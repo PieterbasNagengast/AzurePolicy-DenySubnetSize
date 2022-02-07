@@ -1,6 +1,6 @@
-targetScope = 'subscription'
+targetScope = 'managementGroup'
 
-resource SubnetPolicy 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
+resource policy 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
   name: 'Deny VNET Subnet size'
   properties: {
     description: 'Deny VNET subnet size specified in parameters. Policy works for VNET creation and added/updated Subnets for existing VNETs'
@@ -73,3 +73,5 @@ resource SubnetPolicy 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
     }
   }
 }
+
+output policyID string = policy.id

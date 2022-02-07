@@ -5,7 +5,7 @@
     "_generator": {
       "name": "bicep",
       "version": "0.4.613.9944",
-      "templateHash": "10141621371079983294"
+      "templateHash": "2412327506847772819"
     }
   },
   "functions": [],
@@ -85,5 +85,11 @@
         }
       }
     }
-  ]
+  ],
+  "outputs": {
+    "policyID": {
+      "type": "string",
+      "value": "[format('Microsoft.Authorization/policyDefinitions/{0}', 'Deny VNET Subnet size')]"
+    }
+  }
 }
