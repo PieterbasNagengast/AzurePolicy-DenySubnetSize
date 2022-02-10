@@ -19,7 +19,7 @@
         "displayName": "Deny VNET Subnet size",
         "mode": "All",
         "metadata": {
-          "Category": "Network"
+          "category": "Network"
         },
         "parameters": {
           "DeniedSubnetSize": {
