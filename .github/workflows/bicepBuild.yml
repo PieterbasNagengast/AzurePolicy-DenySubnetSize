@@ -1,0 +1,49 @@
+name: bicepBuild
+
+on:
+  push:
+    paths:
+      - SubnetPolicy.bicep
+
+  workflow_dispatch:
+
+jobs:
+  BicepBuild:
+    name: Bicep Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      
+      - name: bicep-version
+        run: az bicep install --version v0.4.613
+              
+      - name: Update-bicep-file-targetscope
+        run: |
+          var="targetScope = 'subscription'"
+          sed -i "1s/.*/$var/" SubnetPolicy.bicep
+
+      - name: bicep-build-output
+        uses: Azure/bicep-build-action@v1.0.0
+        with:
+          bicepFilePath: ./SubnetPolicy.bicep
+          outputFilePath: ./SubnetPolicy-Sub.json
+
+      - name: Update-bicep-file-targetscope
+        run: |
+          var="targetScope = 'managementGroup'"
+          sed -i "1s/.*/$var/" SubnetPolicy.bicep
+
+      - name: bicep-build-output
+        uses: Azure/bicep-build-action@v1.0.0
+        with:
+          bicepFilePath: ./SubnetPolicy.bicep
+          outputFilePath: ./SubnetPolicy-MgmtGrp.json
+
+      - name: Commit 
+        run: |
+          git config --global user.name 'PieterbasNagengast'
+          git add SubnetPolicy-MgmtGrp.json
+          git add SubnetPolicy-Sub.json
+          git commit -am "Auto commit by Github Action"
+          git push

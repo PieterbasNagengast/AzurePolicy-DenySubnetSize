@@ -7,7 +7,7 @@ resource policy 'Microsoft.Authorization/policyDefinitions@2021-06-01' = {
     displayName: 'Deny VNET Subnet size'
     mode: 'All'
     metadata: {
-      'Category': 'Network'
+      'category': 'Network'
     }
     parameters: {
       'DeniedSubnetSize': {
