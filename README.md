@@ -1,3 +1,5 @@
+[![bicepBuild](https://github.com/PieterbasNagengast/AzurePolicy-DenySubnetSize/actions/workflows/bicepBuild.yml/badge.svg)](https://github.com/PieterbasNagengast/AzurePolicy-DenySubnetSize/actions/workflows/bicepBuild.yml)
+
 # Azure Policy: Deny Subnet Size
 
 ## Description
